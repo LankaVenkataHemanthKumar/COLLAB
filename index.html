@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Digital Calendar & Clock Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1f4037, #99f2c8);
+      color: #222;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      user-select: none;
+      padding: 20px;
+    }
+
+    header {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 50px;
+      letter-spacing: 3px;
+      color: #004d40;
+      text-shadow: 1px 1px 5px #a7ffeb;
+      text-align: center;
+    }
+
+    .dashboard {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      padding: 50px 70px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      min-width: 360px;
+      max-width: 450px;
+      text-align: center;
+    }
+
+    .time {
+      font-size: 5rem;
+      font-weight: 900;
+      color: #00796b;
+      letter-spacing: 4px;
+      font-family: 'Courier New', Courier, monospace;
+      margin-bottom: 25px;
+      user-select: text;
+    }
+
+    .full-date {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #004d40;
+      margin-bottom: 12px;
+      user-select: text;
+    }
+
+    .day-month-year {
+      font-size: 1.3rem;
+      color: #00796b;
+      letter-spacing: 1px;
+      user-select: text;
+    }
+
+    footer {
+      margin-top: 50px;
+      font-size: 1rem;
+      color: #004d40;
+      opacity: 0.6;
+      text-align: center;
+    }
+
+    @media (max-width: 480px) {
+      .dashboard {
+        padding: 30px 20px;
+        min-width: auto;
+        width: 100%;
+      }
+      .time {
+        font-size: 3.5rem;
+      }
+      .full-date {
+        font-size: 1.3rem;
+      }
+      .day-month-year {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>Digital Calendar & Clock</header>
+
+  <div class="dashboard">
+    <div class="time" id="time">--:--:--</div>
+    <div class="full-date" id="fullDate">Loading date...</div>
+    <div class="day-month-year" id="dayMonthYear">Loading day/month/year...</div>
+  </div>
+
+  <footer>© 2025 Your Name</footer>
+
+  <script>
+    function updateDashboard() {
+      const now = new Date();
+
+      // Time: HH:MM:SS
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const seconds = now.getSeconds().toString().padStart(2, '0');
+      const timeString = `${hours}:${minutes}:${seconds}`;
+      document.getElementById('time').textContent = timeString;
+
+      // Date: DD Month YYYY (e.g. 04 September 2025)
+      const day = now.getDate().toString().padStart(2, '0');
+      const monthNames = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+      ];
+      const month = monthNames[now.getMonth()];
+      const year = now.getFullYear();
+      const fullDateString = `${day} ${month} ${year}`;
+      document.getElementById('fullDate').textContent = fullDateString;
+
+      // Day Month Year: e.g. "Thursday, September 2025"
+      const dayNames = [
+        "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+      ];
+      const dayName = dayNames[now.getDay()];
+      const dayMonthYearString = `${dayName}, ${month} ${year}`;
+      document.getElementById('dayMonthYear').textContent = dayMonthYearString;
+    }
+
+    // Update every second
+    setInterval(updateDashboard, 1000);
+    updateDashboard(); // Initial call immediately
+  </script>
+
+</body>
+</html>
